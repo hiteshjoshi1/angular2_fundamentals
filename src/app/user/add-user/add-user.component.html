@@ -1,0 +1,65 @@
+<div class="col-md-6 col-lg-6 well">
+<h2>{{title}}</h2>
+<form [formGroup]="form" (ngSubmit)="title==='New User'?addUser():updateUser()" >
+   <fieldset>
+       <legend>User</legend>
+       <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" formControlName="name" [(ngModel)]="user.name"
+         class= "form-control" id="name" required>
+         <div *ngIf="form.controls.name.touched && form.controls.name.errors">
+            <div *ngIf="form.controls.name.errors.required" class="alert alert-danger">
+                Name cannot be empty !
+            </div>
+         </div>   
+       </div>
+       <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" formControlName="email" [(ngModel)]="user.email"
+         class= "form-control" id="email" required>
+            <div *ngIf="form.controls.email.touched && form.controls.email.errors">
+            <div *ngIf="form.controls.email.errors.required" class="alert alert-danger">
+                Please provide a valid email !  
+            </div>
+            <div *ngIf="form.controls.email.errors.email && !form.controls.email.errors.required" class="alert alert-danger">
+                Incorrect email format!
+            </div> 
+                  
+         </div>
+         </div>
+       <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" name="phone" formControlName="phone" [(ngModel)]="user.phone"
+         class= "form-control" id="phone" required>
+       </div>
+   </fieldset>
+
+   <fieldset>
+       <legend>Address</legend>
+       <!--Note the formGroupName tag here to specify the child Group-->
+        <div formGroupName="address">  
+        <div class="form-group">
+         <label for="street">Street</label>
+        <input type="text" name="street" class= "form-control" formControlName="street" [(ngModel)]="user.address.street"
+        id="street" required>   
+       </div>
+       <div class="form-group">
+         <label for="suite">Suite</label>
+        <input type="text" name="suite" class= "form-control" formControlName="suite" [(ngModel)]="user.address.suite"
+         id="suite" required>   
+       </div>
+       <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" name="city" class= "form-control" formControlName="city" [(ngModel)]="user.address.city"
+         id="city" required>   
+       </div>
+        <div class="form-group">
+        <label for="zipcode">Zipcode</label>
+        <input type="text" name="zipcode" class= "form-control" formControlName="zipcode" [(ngModel)]="user.address.zipcode"
+         id="zipcode" required> 
+       </div>
+        </div>
+    </fieldset> 
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
+</form>    
+</div>

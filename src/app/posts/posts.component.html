@@ -1,0 +1,44 @@
+<div class="container">
+    <h1>Posts</h1>
+    <div class="row">
+        <div class="col-xs-6">
+            <select name="userSelect" id="userSelect" class="form-control"(change)="filterPost({userId:u.value})" #u>
+                <option value="">Select a user </option>
+                <option *ngFor="let user of users" value="{{user.id}}">{{user.name}}</option>
+            </select>
+             <app-spinner [load]="postsLoading" [message]="'Loading Posts'"></app-spinner>
+             <app-pagination [items]= "posts?.length" (pageChanged)="paginate($event)" [pageSize]="pageSize"></app-pagination>	
+              <ul class="list-group" *ngFor="let post of pagedPosts">
+                <li class="list-group-item" (click)="onClick(post)">
+                    {{post.title}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-6 other">
+            <div class="panel panel-default" *ngIf="selectedPost">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{selectedPost.title}}</h3>
+                </div>
+                <div class="panel-body">
+                    {{selectedPost.body}}
+                    <hr/>
+                </div>
+
+                <app-spinner [load]="commentsLoading" [message]="'Loading comments'"></app-spinner>
+                <div class="media" *ngFor="let comment of comments">
+                    <div class="media-left">
+                        <a href="#">
+                             <img class="media-object" src="http://lorempixel.com/80/80/fashion?random={{comment.id}}" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{comment.name}}</h4>
+                        <div class="media-body">{{comment.body}}</div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

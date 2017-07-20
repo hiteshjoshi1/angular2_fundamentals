@@ -1,0 +1,29 @@
+<div class="container">
+<h2>Users</h2>
+
+<app-spinner [load]="isRequesting"></app-spinner>
+
+
+
+  <!-- Default panel contents -->
+  <p>
+    <a routerLink="/users/new" class="btn btn-primary">Add User</a>
+    </p>
+
+  <!-- Table -->
+  <table class="table table-bordered">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    <tr *ngFor= "let user of users">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td><i class="glyphicon glyphicon-edit"(click)="editUser(user)"></i></td>
+      <td><i class="glyphicon glyphicon-remove" (click)="deleteUser(user)"></i></td>
+    </tr>  
+
+  </table>
+</div>
